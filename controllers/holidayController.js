@@ -18,21 +18,24 @@ router.get("/seed", async (req, res) => {
   res.json(holidays)
 })
 
-//Create Route
+//* Index Route
+router.get('/', (req, res) => {
+  Holiday.find()
+    .then(holidays => {
+      res.json(holidays)
+    })
+    .catch(err => {
+      res.json(err)
+    })
+})
+
+
+//* Create Route
 router.post("/", async (req, res) => {
+  console.log("body", req.body)
   try {
     const createdHoliday = await Holiday.create(req.body);
     res.status(200).send(createdHoliday);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  };
-});
-
-//Index Route
-router.get("/", async (req, res) => {
-  try {
-    const foundHolidays = await Holiday.find({});
-    res.status(200).send(foundHolidays);
   } catch (error) {
     res.status(400).json({ error: error.message });
   };
