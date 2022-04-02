@@ -40,12 +40,8 @@ router.get("/", async (req, res) => {
 
 //Delete Route
 router.delete("/:id", async (req, res) => {
-  try {
-    const deletedHoliday = await Holiday.findByIdAndRemove(req.params.id);
-    res.status(200).send(deletedHoliday);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  };
+  await Holiday.findByIdAndRemove(req.params.id);
+  res.json({ message: "Holiday Deleted" });
 });
 
 
