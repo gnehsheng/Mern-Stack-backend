@@ -18,8 +18,34 @@ router.get("/seed", async (req, res) => {
   res.json(holidays)
 })
 
-router.get('/', (req, res) => {
-  res.send('holidays');
-})
+//Create Route
+router.post("/", async (req, res) => {
+  try {
+    const createdHoliday = await Holiday.create(req.body);
+    res.status(200).send(createdHoliday);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  };
+});
+
+//Index Route
+router.get("/", async (req, res) => {
+  try {
+    const foundHolidays = await Holiday.find({});
+    res.status(200).send(foundHolidays);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  };
+});
+
+//Delete Route
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedHoliday = await Holiday.findByIdAndRemove(req.params.id);
+    res.status(200).send(deletedHoliday);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  };
+});
 
 module.exports = router;
