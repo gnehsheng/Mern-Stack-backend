@@ -4,7 +4,6 @@ const cors = require('cors')
 const mongoose = require("mongoose");
 const HolidayController = require("./controllers/holidayController")
 
-
 const app = express();
 const PORT = process.env.PORT ?? 2000
 const MONGODB_URI = process.env.MONGODB_URI ?? "mongodb+srv://sheng:1234@cluster0.smepc.mongodb.net/holidays"
